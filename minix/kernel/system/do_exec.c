@@ -19,9 +19,6 @@
  *===========================================================================*/
 int do_exec(struct proc * caller, message * m_ptr)
 {
-	printf("Executando: ");
-   	printf(caller);
-   	printf(m_ptr);
 	
 /* Handle sys_exec().  A process has done a successful EXEC. Patch it up. */
   register struct proc *rp;
@@ -44,6 +41,8 @@ int do_exec(struct proc * caller, message * m_ptr)
   	strncpy(name, "<unset>", PROC_NAME_LEN);
 
   name[sizeof(name)-1] = '\0';
+	printf("\nExecutando: ");
+  	printf("/%s\n", m_ptr->m_lsys_krn_sys_exec.name);
 
   /* Set process state. */
   arch_proc_init(rp,
