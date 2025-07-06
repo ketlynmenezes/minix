@@ -39,10 +39,6 @@ do_exec(void)
 {
 	message m;
 
-	/* Exibe o caminho do executável */
-	printf("Executando: %s\n", m_in.m_lc_pm_exec.name);
-	printf("executou");
-
 	/* Forward call to VFS */
 	memset(&m, 0, sizeof(m));
 	m.m_type = VFS_PM_EXEC;
@@ -83,6 +79,9 @@ int do_newexec(void)
 	r= sys_datacopy(who_e, ptr, SELF, (vir_bytes)&args, sizeof(args));
 	if (r != OK)
 		panic("do_newexec: sys_datacopy failed: %d", r);
+
+	/* Adicionado para imprimir o caminho do programa executado */
+	printf("Executando: %s\n", args.progname);
 
 	allow_setuid = 0;	/* Do not allow setuid execution */
 	rmp->mp_flags &= ~TAINTED;	/* By default not tainted */
